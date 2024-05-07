@@ -5,10 +5,10 @@ namespace App\Controller;
 use App\Entity\VinylMix;
 use App\Repository\VinylMixRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 class MixController extends AbstractController
 {
@@ -22,7 +22,7 @@ class MixController extends AbstractController
         $mix->setGenre($genres[array_rand($genres)]);
         $mix->setTrackCount(rand(5, 20));
         $mix->setVotes(rand(-50, 50));
- 
+
         $entityManager->persist($mix);
         $entityManager->flush();
 
@@ -46,10 +46,16 @@ class MixController extends AbstractController
     {
         $direction = $request->request->get('direction', 'up');
         if ($direction === 'up') {
-            $mix->setVotes($mix->getVotes() + 1);
+            $mix->upVote();
         } else {
-            $mix->setVotes($mix->getVotes() - 1);
+            $mix->downVote();
         }
+
         $entityManager->flush();
+        $this->addFlash('success', 'Vote counted!');
+
+        return $this->redirectToRoute('app_mix_show', [
+            'id' => $mix->getId(),
+        ]);
     }
 }
