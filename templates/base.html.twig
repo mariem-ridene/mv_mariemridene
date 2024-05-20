@@ -34,6 +34,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" style="margin-top: 20px;" href="{{ path('app_browse') }}">Browse Mixes</a>
                             </li>
+                            
                             <!-- Not Authenticated -->
                                 <!-- <li class="nav-item"><button href="#" class="btn btn-primary btn-sm">Login</button></li> -->
                             <!-- End Not Authenticated -->
@@ -61,6 +62,11 @@
                 </div>
             {% endfor %}
         </div>
+        <!-- Contact Button -->
+            <div class="container mt-3">
+                <a href="{{ path('app_contact_form') }}" class="btn btn-primary">Contactez-nous</a>
+            </div>
+            <!-- End Contact Button -->
 
         {% block body %}{% endblock %}
 

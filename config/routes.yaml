@@ -3,3 +3,12 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+contact_show:
+    path: /contact
+    controller: App\Controller\ContactMailController::showForm
+    methods: [GET]
+
+contact_submit:
+    path: /contact
+    controller: App\Controller\ContactMailController::submitForm
+    methods: [POST]
